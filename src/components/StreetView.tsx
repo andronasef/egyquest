@@ -53,8 +53,10 @@ function ViewAcitons() {
   );
 }
 
-function StreetViewIframe({ data }: { data: unknown }) {
-  const url = (data as any)['Embed Url'];
+function StreetViewIframe() {
+  const { currentPlace } = useSelector((state) => state.places);
+
+  const url = (currentPlace as any)['Embed Url'];
   return <iframe width="100%" height="100%" src={url} />;
 }
 
@@ -67,21 +69,13 @@ function Loader() {
 }
 
 function StreetView() {
-  const dispatch = useDispatch();
-  const { status, currentPlace } = useSelector((state) => state.places);
+  const { status } = useSelector((state) => state.places);
 
-  useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get('id');
-    //@ts-ignore
-    dispatch(fetchPlace(id));
-  }, []);
   return (
     <div className="relative h-full">
       <ViewAcitons />
       {status == LoadingStatus.LOADING && <Loader />}
-      {status == LoadingStatus.SUCCEEDED && (
-        <StreetViewIframe data={currentPlace} />
-      )}
+      {status == LoadingStatus.SUCCEEDED && <StreetViewIframe />}
     </div>
   );
 }
