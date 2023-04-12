@@ -12,13 +12,8 @@ const API = 'https://script.google.com/macros/s/AKfycbyTiJymrTr0RD3xU5_vun7kKgkM
 export const fetchPlace = createAsyncThunk(
     'places/fetchPlace',
     async (placeId: string) => {
-
-        const reqUrl = API + (placeId ? `?id=${placeId}` : '')
-        const response = await fetch(reqUrl)
-
-        // if id is not found.it redirect and make new requst which result 2 places request at same time
-        return Promise.resolve(await response.json())
-
+        const response = await fetch(`${API}?id=${placeId}`)
+        return response.json()
     })
 
 
