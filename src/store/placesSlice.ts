@@ -27,6 +27,17 @@ const placesSlice = createSlice({
         error: null
     },
     reducers: {
+        toggleFavoriteForCurrnetPlace: (state, action) => {
+            if (state.currentPlace) {
+                const isLoved = state.places.find((place) => place.ID === state.currentPlace.ID)
+                if (isLoved && state.status == LoadingStatus.SUCCEEDED) {
+                    state.places = state.places.filter((place) => place.ID !== state.currentPlace.ID)
+                }
+                else {
+                    state.places.push(state.currentPlace)
+                }
+            }
+        }
 
 
     },
@@ -48,6 +59,14 @@ const placesSlice = createSlice({
             })
     }
 })
+
+export const isCurrentPlaceLovedSelector = (state) => {
+    const isLoved = state.places.places.find((place) => place.ID === state.places.currentPlace.ID)
+    return !!isLoved
+}
+
+export const { toggleFavoriteForCurrnetPlace } = placesSlice.actions
+
 
 
 export default placesSlice.reducer

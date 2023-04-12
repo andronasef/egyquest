@@ -1,30 +1,51 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MdiCardsHeart from '~icons/mdi/cards-heart';
 import RiHeartsFill from '~icons/ri/hearts-fill';
 import RiShareForwardFill from '~icons/ri/share-forward-fill';
 import SvgSpinnersPulse2 from '~icons/svg-spinners/pulse-2';
-import { LoadingStatus, fetchPlace } from '../store/placesSlice';
+import {
+  LoadingStatus,
+  isCurrentPlaceLovedSelector,
+  toggleFavoriteForCurrnetPlace,
+} from '../store/placesSlice';
 
 function ViewAcitons() {
-  const ButtonStyle =
+  const { status } = useSelector((state) => state.places);
+
+  const dispatch = useDispatch();
+  const isCurrentPlaceLoved = useSelector(isCurrentPlaceLovedSelector);
+  const isLoading = status == LoadingStatus.LOADING;
+
+  const ViewActionButtonStyle =
     'flex flex-col items-center font-semibold px-1 py-2 w-full hover:bg-white/20 rounded box-border ';
+
+  function toggleCurrentLike() {
+    dispatch(toggleFavoriteForCurrnetPlace({}));
+  }
 
   return (
     <div
       className={
-        'bg-surface text-white rounded absolute right-0 top-[10%] flex flex-col justify-center items-center z-50 gap-1 p-1 transition-all'
+        ' bg-surface text-white rounded absolute right-0 top-[10%] flex flex-col justify-center items-center z-50 gap-1 p-1 transition-all'
       }
     >
-      <button className={ButtonStyle} >
+      <button
+        disabled={isLoading}
+        onClick={toggleCurrentLike}
+        className={
+          (isCurrentPlaceLoved && !isLoading
+            ? 'bg-white/90 text-red-500 hover:bg-white/80 '
+            : '') + ViewActionButtonStyle
+        }
+      >
         <MdiCardsHeart />
         <span>Love</span>
       </button>
-      <button className={ButtonStyle}>
+      <button disabled={isLoading} className={ViewActionButtonStyle}>
         <RiHeartsFill />
         <span>Likes</span>
       </button>
-      <button className={ButtonStyle}>
+      <button disabled={isLoading} className={ViewActionButtonStyle}>
         <RiShareForwardFill />
         <span>Share</span>
       </button>
