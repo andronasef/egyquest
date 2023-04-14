@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Header from './components/Header';
 import MyInfo from './components/MyInfo';
-import StreetView from './components/StreetView';
+import StreetView from './components/streetview/StreetView';
 import { useDispatch } from 'react-redux';
 import { fetchPlace } from './store/placesSlice';
 

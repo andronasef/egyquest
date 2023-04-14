@@ -48,8 +48,6 @@ const placesSlice = createSlice({
 
             })
             .addCase(fetchPlace.fulfilled, (state, action) => {
-                console.log(action.payload)
-
                 state.status = LoadingStatus.SUCCEEDED
                 state.currentPlace = action.payload
             })

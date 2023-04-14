@@ -1,23 +1,37 @@
+import { useFloating } from '@floating-ui/react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MdiCardsHeart from '~icons/mdi/cards-heart';
 import RiHeartsFill from '~icons/ri/hearts-fill';
 import RiShareForwardFill from '~icons/ri/share-forward-fill';
-import SvgSpinnersPulse2 from '~icons/svg-spinners/pulse-2';
 import {
   LoadingStatus,
   isCurrentPlaceLovedSelector,
   toggleFavoriteForCurrnetPlace,
-} from '../store/placesSlice';
+} from '../../store/placesSlice';
+import Modal from './Modal';
 
 function ViewAcitons() {
-  const { status } = useSelector((state) => state.places);
-
   const dispatch = useDispatch();
+  const { status } = useSelector((state) => state.places);
   const isCurrentPlaceLoved = useSelector(isCurrentPlaceLovedSelector);
   const isLoading = status == LoadingStatus.LOADING;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalElement, setModalElement] = useState();
+
+  const { refs, context } = useFloating({
+    open: isModalOpen,
+    onOpenChange: setIsModalOpen,
+  });
+
   const ViewActionButtonStyle =
     'flex flex-col items-center font-semibold px-1 py-2 w-full hover:bg-white/20 rounded box-border ';
+
+  function openModal(element) {
+    setModalElement(element);
+    setIsModalOpen(true);
+  }
 
   function toggleCurrentLike() {
     dispatch(toggleFavoriteForCurrnetPlace({}));
@@ -41,42 +55,36 @@ function ViewAcitons() {
         <MdiCardsHeart />
         <span>Love</span>
       </button>
-      <button disabled={isLoading} className={ViewActionButtonStyle}>
+
+      <button
+        onClick={() => openModal(null)}
+        disabled={isLoading}
+        className={ViewActionButtonStyle}
+      >
         <RiHeartsFill />
         <span>Likes</span>
       </button>
-      <button disabled={isLoading} className={ViewActionButtonStyle}>
+
+      <button
+        disabled={isLoading}
+        onClick={() => openModal(null)}
+        className={ViewActionButtonStyle}
+        ref={refs.setReference}
+      >
         <RiShareForwardFill />
         <span>Share</span>
       </button>
+
+      <Modal
+        setIsModalOpen={setIsModalOpen}
+        childern={modalElement}
+        context={context}
+        refs={refs}
+      >
+        <p>Andrew</p>
+      </Modal>
     </div>
   );
 }
 
-function StreetViewIframe() {
-  const { currentPlace } = useSelector((state) => state.places);
-
-  const url = (currentPlace as any)['Embed Url'];
-  return <iframe width="100%" height="100%" src={url} />;
-}
-
-function Loader() {
-  return (
-    <div className="flex items-center justify-center w-full h-full text-5xl text-surface">
-      <SvgSpinnersPulse2 />
-    </div>
-  );
-}
-
-function StreetView() {
-  const { status } = useSelector((state) => state.places);
-
-  return (
-    <div className="relative h-full">
-      <ViewAcitons />
-      {status == LoadingStatus.LOADING && <Loader />}
-      {status == LoadingStatus.SUCCEEDED && <StreetViewIframe />}
-    </div>
-  );
-}
-export default StreetView;
+export default ViewAcitons;
