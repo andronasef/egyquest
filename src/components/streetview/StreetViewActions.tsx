@@ -10,6 +10,7 @@ import {
   toggleFavoriteForCurrnetPlace,
 } from '../../store/placesSlice';
 import Modal from './Modal';
+import ShareButtons from './ShareButtons';
 
 function ViewAcitons() {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function ViewAcitons() {
 
       <button
         disabled={isLoading}
-        onClick={() => openModal(null)}
+        onClick={() => openModal(<ShareButtons />)}
         className={ViewActionButtonStyle}
         ref={refs.setReference}
       >
