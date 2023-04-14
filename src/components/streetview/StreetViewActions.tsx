@@ -1,26 +1,26 @@
 import { useFloating } from '@floating-ui/react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import MdiCardsHeart from '~icons/mdi/cards-heart';
 import RiHeartsFill from '~icons/ri/hearts-fill';
 import RiShareForwardFill from '~icons/ri/share-forward-fill';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   LoadingStatus,
   isCurrentPlaceLovedSelector,
   toggleFavoriteForCurrnetPlace,
 } from '../../store/placesSlice';
+import LovedList from './LovedList';
 import Modal from './Modal';
 import ShareButtons from './ShareButtons';
-import LovedList from './LovedList';
 
 function ViewAcitons() {
-  const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.places);
-  const isCurrentPlaceLoved = useSelector(isCurrentPlaceLovedSelector);
+  const dispatch = useAppDispatch();
+  const { status } = useAppSelector((state) => state.places);
+  const isCurrentPlaceLoved = useAppSelector(isCurrentPlaceLovedSelector);
   const isLoading = status == LoadingStatus.LOADING;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalElement, setModalElement] = useState();
+  const [modalElement, setModalElement] = useState<JSX.Element>();
 
   const { refs, context } = useFloating({
     open: isModalOpen,
@@ -30,7 +30,7 @@ function ViewAcitons() {
   const ViewActionButtonStyle =
     'flex flex-col items-center font-semibold px-1 py-2 w-full hover:bg-white/20 rounded box-border ';
 
-  function openModal(element) {
+  function openModal(element: JSX.Element) {
     setModalElement(element);
     setIsModalOpen(true);
   }
@@ -82,9 +82,7 @@ function ViewAcitons() {
         childern={modalElement}
         context={context}
         refs={refs}
-      >
-        <p>Andrew</p>
-      </Modal>
+      ></Modal>
     </div>
   );
 }

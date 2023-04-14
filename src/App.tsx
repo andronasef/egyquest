@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import Header from './components/Header';
 import MyInfo from './components/MyInfo';
 import StreetView from './components/streetview/StreetView';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from './store/hooks';
 import { fetchPlace } from './store/placesSlice';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get('id');

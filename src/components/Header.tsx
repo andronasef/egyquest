@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import PhRepeatBold from '~icons/ph/repeat-bold';
 import { LoadingStatus, fetchPlace } from '../store/placesSlice';
 function Header() {
-  const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.places);
+  const dispatch = useAppDispatch();
+  const { status } = useAppSelector((state) => state.places);
 
   return (
     <>

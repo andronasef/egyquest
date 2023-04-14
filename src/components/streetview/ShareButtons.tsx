@@ -1,11 +1,11 @@
-import { useSelector } from 'react-redux';
 import RiFacebookFill from '~icons/ri/facebook-fill';
 import RiLinkM from '~icons/ri/link-m';
 import RiTwitterFill from '~icons/ri/twitter-fill';
 import RiWhatsappFill from '~icons/ri/whatsapp-fill';
+import { useAppSelector } from '../../store/hooks';
 
 function ShareButtons() {
-  const place = useSelector((state) => state.places.currentPlace);
+  const place = useAppSelector((state) => state.places.currentPlace);
   const placeName = place['Place Name'];
   const placeID = place['ID'];
   const url = `https://andronasef.github.io/egyquest?id=${placeID}`;

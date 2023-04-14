@@ -9,7 +9,17 @@ import {
 } from '@floating-ui/react';
 import IcRoundCancel from '~icons/ic/round-cancel';
 
-function Modal({ childern, setIsModalOpen, refs, context }) {
+function Modal({
+  childern,
+  setIsModalOpen,
+  refs,
+  context,
+}: {
+  childern: React.ReactElement | undefined;
+  setIsModalOpen: (value: boolean) => void;
+  refs: any;
+  context: any;
+}) {
   const click = useClick(context);
   const dismiss = useDismiss(context, {
     outsidePressEvent: 'mousedown',

@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlace } from '../../store/placesSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { PlaceType, fetchPlace } from '../../store/placesSlice';
 
 function LovedList() {
-  const dispatch = useDispatch();
-  const lovedPlaces = useSelector((state) => state.places.places);
+  const dispatch = useAppDispatch();
+  const lovedPlaces = useAppSelector((state) => state.places.places);
 
-  function handlePlaceClick(place) {
+  function handlePlaceClick(place: PlaceType) {
     // @ts-ignore
     dispatch(fetchPlace(place.ID));
     // close modal using escape key
@@ -24,7 +24,7 @@ function LovedList() {
       <p className="text-2xl">Your Likes</p>
       <div className="overflow-y-scroll flex flex-col">
         {lovedPlaces &&
-          lovedPlaces.map((place) => {
+          lovedPlaces.map((place:PlaceType) => {
             return (
               <button
                 onClick={() => handlePlaceClick(place)}
