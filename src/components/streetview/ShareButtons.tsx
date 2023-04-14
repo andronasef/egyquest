@@ -5,9 +5,11 @@ import RiTwitterFill from '~icons/ri/twitter-fill';
 import RiWhatsappFill from '~icons/ri/whatsapp-fill';
 
 function ShareButtons() {
-  const message = 'Check out this place on EGYQUEST:';
-  const placeID = useSelector((state) => state.places.currentPlace['ID']);
+  const place = useSelector((state) => state.places.currentPlace);
+  const placeName = place['Place Name'];
+  const placeID = place['ID'];
   const url = `https://andronasef.github.io/egyquest?id=${placeID}`;
+  const message = `Check out ${placeName} on EGYQUEST:`;
 
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&t=${message}`;
   const twitterUrl = `https://twitter.com/intent/tweet?text=${message}&url=${url}`;
