@@ -4,6 +4,7 @@
 
 * {
   font-family: 'Spinnaker', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
 }
 
 /* spinnaker-regular - latin */
