@@ -7,6 +7,8 @@ export enum LoadingStatus {
     FAILED = 'failed'
 }
 
+
+
 const API = 'https://script.google.com/macros/s/AKfycbyTiJymrTr0RD3xU5_vun7kKgkMW7UD6BsptpqqgwxNoG7ZXBnFMsihV6jRhXFm3BI2/exec'
 
 export const fetchPlace = createAsyncThunk(
@@ -16,16 +18,18 @@ export const fetchPlace = createAsyncThunk(
         return response.json()
     })
 
+const persistedPlaces = localStorage.getItem("places") !== null ? JSON.parse(localStorage.getItem("places") || '') : []
 
+const initialState = {
+    places: persistedPlaces,
+    currentPlace: null,
+    status: LoadingStatus.IDLE,
+    error: null
+}
 
 const placesSlice = createSlice({
     name: 'places',
-    initialState: {
-        places: [],
-        currentPlace: null,
-        status: LoadingStatus.IDLE,
-        error: null
-    },
+    initialState,
     reducers: {
         toggleFavoriteForCurrnetPlace: (state, action) => {
             if (state.currentPlace) {
@@ -37,6 +41,7 @@ const placesSlice = createSlice({
                     state.places.push(state.currentPlace)
                 }
             }
+            localStorage.setItem("places", JSON.stringify(state.places))
         }
 
 
@@ -59,8 +64,12 @@ const placesSlice = createSlice({
 })
 
 export const isCurrentPlaceLovedSelector = (state) => {
-    const isLoved = state.places.places.find((place) => place.ID === state.places.currentPlace.ID)
-    return !!isLoved
+    if (!state.places.currentPlace) {
+        return false
+    }
+    return state.places.places.find((place) =>
+        place.ID === state.places.currentPlace.ID
+    )
 }
 
 export const { toggleFavoriteForCurrnetPlace } = placesSlice.actions

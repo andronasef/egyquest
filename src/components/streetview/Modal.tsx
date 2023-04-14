@@ -54,7 +54,7 @@ function Modal({ childern, setIsModalOpen, refs, context }) {
           <FloatingFocusManager context={context}>
             <div
               style={{ ...modalBodyTranstion.styles }}
-              className="relative flex flex-col items-center justify-center w-[90%] h-full max-w-sm gap-3 rounded-md min-h-[16rem] h-auto bg-surface "
+              className="relative flex flex-col items-center justify-center w-[90%] max-w-sm gap-3 rounded-md min-h-[16rem] max-h-[20rem]  bg-surface "
               ref={refs.setFloating}
               {...getFloatingProps()}
             >
