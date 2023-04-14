@@ -11,6 +11,7 @@ import {
 } from '../../store/placesSlice';
 import Modal from './Modal';
 import ShareButtons from './ShareButtons';
+import LovedList from './LovedList';
 
 function ViewAcitons() {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ function ViewAcitons() {
       </button>
 
       <button
-        onClick={() => openModal(null)}
+        onClick={() => openModal(<LovedList />)}
         disabled={isLoading}
         className={ViewActionButtonStyle}
       >
