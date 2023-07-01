@@ -8,9 +8,6 @@ async function getStreetViewsFromURL(url) {
   await page.goto(url);
   await page.waitForLoadState('networkidle');
 
-  // click first button to accept cookies
-  (await page.$$('button'))[0].click();
-
   // go to street views page
   await goToStreetViewsPage(page);
 
@@ -26,8 +23,6 @@ async function getStreetViewsFromURL(url) {
 }
 
 async function goToStreetViewsPage(page) {
-  await page.waitForLoadState('networkidle');
-
   // Click on 360 button
   const btn360 = await page.getByText('360').first();
   if (btn360) {
@@ -59,8 +54,8 @@ async function getEachLocationIframe(page) {
     );
 
     try {
-      await page.waitForTimeout(2000);
       await location.click();
+      await page.waitForTimeout(2000);
 
       // click on 3 Dots Menu for Map to reach Embed Iframe
       await page.click('button[jsaction="titlecard.settings"]');
