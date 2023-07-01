@@ -1,6 +1,6 @@
 # Egyquest 𓋹
 
-![Egyquest - Discover Egypt](public/egyquest-social.jpg)
+![Egyquest - Discover Egypt](client/public/egyquest-social.jpg)
 
 Embark on an immersive journey to ancient Egypt from the comfort of your home with [Egyquest](https://andronasef.github.io/egyquest). This web application allows you to explore the wonders of this legendary civilization through a virtual tour of its most famous landmarks, including the majestic pyramids and mystical temples.
 

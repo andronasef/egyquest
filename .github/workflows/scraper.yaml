@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: Run the main script
-        run: node index.js
+        run: npm i && npx playwright install &&  npm run scraper
         env:
           NAME: ${{ env.NAME }}
           URL: ${{ env.URL }}
