@@ -1,0 +1,20 @@
+{
+  "name": "Google Maps Street View Scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "scrapper": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.35.1"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1"
+  }
+}

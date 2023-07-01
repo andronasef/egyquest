@@ -1,0 +1,32 @@
+name: Scraping Google Street View for Egyquest
+
+defaults:
+  run:
+    working-directory: ./scraper
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Place Name'
+        required: true
+      url:
+        description: 'URL'
+        required: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set environment variables
+        run: echo "NAME=${{ github.event.inputs.name }}" >> $GITHUB_ENV && echo "URL=${{ github.event.inputs.url }}" >> $GITHUB_ENV
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+      - name: Run the main script
+        run: node index.js
+        env:
+          NAME: ${{ env.NAME }}
+          URL: ${{ env.URL }}
