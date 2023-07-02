@@ -1,11 +1,17 @@
 import { chromium } from '@playwright/test';
 
 async function getStreetViewsFromURL(url) {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: Boolean(process.env.HEADLESS ?? true),
+  });
   const context = await browser.newContext();
   const page = await context.newPage();
 
   await page.goto(url);
+  await page.waitForLoadState('networkidle');
+
+  (await page.$('button'))?.click().catch((err) => console.log(err));
+
   await page.waitForLoadState('networkidle');
 
   // go to street views page
@@ -24,10 +30,8 @@ async function getStreetViewsFromURL(url) {
 
 async function goToStreetViewsPage(page) {
   // Click on 360 button
-  const btn360 = await page.getByText('360').first();
-  if (btn360) {
-    await btn360.click();
-  }
+  const btn360 = await page.getByText('360°').first();
+  await btn360.click().catch((err) => console.log(err));
 }
 
 async function getAllLocationsElements(page) {
