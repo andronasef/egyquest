@@ -3,3 +3,12 @@ image:
 ports:
   - port: 6080
     protocol: 'http'
+
+tasks:
+  - name: Install dependencies
+    init: |
+      cd client
+      pnpm i
+      cd ../scraper
+      pnpm run i
+    command: sleep 1
